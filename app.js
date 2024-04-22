@@ -1,5 +1,6 @@
 const searchBtn = document.querySelector('#search')
 const APIkey = '6320828b522ee3cedf3185121e3e1811'
+const cityInput = document.querySelector('#city-input')
 
 function kToF(kelvin) {
     return (kelvin * 9/5) - 459.67;
@@ -21,8 +22,31 @@ function createDayEl(weatherObj){
     div.appendChild(wind)
 
     return div
-
 }
+
+function saveCityToLocaStorage(city) {
+    localStorage.setItem('lastCity');
+}
+
+function loadCityFromLocalStorage() {
+    return localStorage.getItem('lastCity');
+}
+
+searchBtn.addEventListener('click', async () => {
+    const inputCity = cityInput.value;
+
+    saveCityToLocaStorage(inputCity);
+})
+
+window.addEventListener('load', () => {
+    const lastCity = loadCityFromLocalStorage();
+    if (lastCity) {
+        cityInput.value = lastCity;
+    }
+    if (lastCity) {
+        searchBtn.click();
+    }
+})
 
 searchBtn.addEventListener('click', async()=> {
     const inputCity = document.querySelector('#city-input').value
