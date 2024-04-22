@@ -24,7 +24,7 @@ function createDayEl(weatherObj){
     return div
 }
 
-function saveCityToLocaStorage(city) {
+function saveCityToLocalStorage(city) {
     localStorage.setItem('lastCity');
 }
 
@@ -35,7 +35,7 @@ function loadCityFromLocalStorage() {
 searchBtn.addEventListener('click', async () => {
     const inputCity = cityInput.value;
 
-    saveCityToLocaStorage(inputCity);
+    saveCityToLocalStorage(inputCity);
 })
 
 window.addEventListener('load', () => {
