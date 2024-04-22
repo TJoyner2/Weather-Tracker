@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -31,3 +31,21 @@ button {
     cursor: pointer;
 }
 
+button {
+    background-color: #0056b3;
+}
+
+.weather-container {
+    margin-top: 20px;
+}
+
+.weather-day {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.weather-day p {
+    margin: 5px 0;
+}

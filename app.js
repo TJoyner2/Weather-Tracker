@@ -24,30 +24,6 @@ function createDayEl(weatherObj){
     return div
 }
 
-function saveCityToLocalStorage(city) {
-    localStorage.setItem('lastCity');
-}
-
-function loadCityFromLocalStorage() {
-    return localStorage.getItem('lastCity');
-}
-
-searchBtn.addEventListener('click', async () => {
-    const inputCity = cityInput.value;
-
-    saveCityToLocalStorage(inputCity);
-})
-
-window.addEventListener('load', () => {
-    const lastCity = loadCityFromLocalStorage();
-    if (lastCity) {
-        cityInput.value = lastCity;
-    }
-    if (lastCity) {
-        searchBtn.click();
-    }
-})
-
 searchBtn.addEventListener('click', async()=> {
     const inputCity = document.querySelector('#city-input').value
 
@@ -77,3 +53,28 @@ searchBtn.addEventListener('click', async()=> {
 
     //api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 })
+
+function saveCityToLocalStorage(city) {
+    localStorage.setItem('lastCity', city);
+}
+
+function loadCityFromLocalStorage() {
+    return localStorage.getItem('lastCity');
+}
+
+searchBtn.addEventListener('click', async () => {
+    const inputCity = cityInput.value;
+
+    saveCityToLocalStorage(inputCity);
+})
+
+window.addEventListener('load', () => {
+    const lastCity = loadCityFromLocalStorage();
+    if (lastCity) {
+        cityInput.value = lastCity;
+    }
+    if (lastCity) {
+        searchBtn.click();
+    }
+})
+
