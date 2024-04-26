@@ -6,10 +6,15 @@ const API_KEY = "6320828b522ee3cedf3185121e3e1811";
 const iconUrl = "https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png";
 
 const createWeatherCard = (cityName, weatherItem, index) => {
+    const celsiusToFahrenheit = (celsius) => {
+        return (celsius * 9/5) + 32;
+    }
     if (index === 0) { //single day weather
+        const tempCelsius = weatherItem.main.temp -273.15;
+        const tempFahrenheit = celsiusToFahrenheit(tempCelsius);
         return `<div class="details">
                     <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2>
-                    <h4>Temperature: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h4>
+                    <h4>Temperature: ${tempFahrenheit.toFixed(2)}°C</h4>
                     <h4>Wind: ${weatherItem.wind.speed}M/S</h4>
                     <h4>Humidity: ${weatherItem.main.humidity}%</h4> 
                 </div>
@@ -18,10 +23,12 @@ const createWeatherCard = (cityName, weatherItem, index) => {
                     <h4>${weatherItem.weather[0].description}</h4>
                 </div>`;
     } else {  //5 day weather
+        const tempCelsius = weatherItem.main.temp -273.15;
+        const tempFahrenheit = celsiusToFahrenheit(tempCelsius);
         return `<li class="card">
                     <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
                     <img src="${iconUrl}" alt="weather-icon">
-                    <h4>Temp: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h4>
+                    <h4>Temp: ${tempFahrenheit.toFixed(2)}°C</h4>
                     <h4>Wind: ${weatherItem.wind.speed}M/S</h4>
                     <h4>Humidity ${weatherItem.main.humidity}%</h4> 
                 </li>`;
