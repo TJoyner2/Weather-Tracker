@@ -15,7 +15,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
         const tempFahrenheit = celsiusToFahrenheit(tempCelsius);
         return `<div class="details">
                     <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2>
-                    <h4>Temperature: ${tempFahrenheit.toFixed(2)}°C</h4>
+                    <h4>Temperature: ${tempFahrenheit.toFixed(2)}°F</h4>
                     <h4>Wind: ${weatherItem.wind.speed}M/S</h4>
                     <h4>Humidity: ${weatherItem.main.humidity}%</h4> 
                 </div>
@@ -29,7 +29,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
         return `<li class="card">
                     <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
                     <img src="${iconUrl}" alt="weather-icon">
-                    <h4>Temp: ${tempFahrenheit.toFixed(2)}°C</h4>
+                    <h4>Temp: ${tempFahrenheit.toFixed(2)}F°</h4>
                     <h4>Wind: ${weatherItem.wind.speed}M/S</h4>
                     <h4>Humidity ${weatherItem.main.humidity}%</h4> 
                 </li>`;
@@ -91,6 +91,12 @@ const getCityCoordinates = () => {
         alert("Failed to fetch the coordinates.");
     })
     // get city details and post them
+
+    const saveCitySearch = (city) => {
+        citySearches.push(city);
+        console.log (citySearches)
+        localStorage.setItem('citySearches', JSON.stringify(citySearches));
+    }
 }
 
 searchButton.addEventListener("click", getCityCoordinates);
