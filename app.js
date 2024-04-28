@@ -4,12 +4,13 @@ const weatherCardsDiv = document.querySelector(".weather-cards");
 const currentWeatherDiv = document.querySelector(".current-weather")
 const API_KEY = "6320828b522ee3cedf3185121e3e1811";
 const iconUrl = "https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png";
+const citiesWeather = [];
 
 const createWeatherCard = (cityName, weatherItem, index) => {
     const celsiusToFahrenheit = (celsius) => {
         return (celsius * 9/5) + 32;
     }
-    if (index === 0) { //single day weather
+    if (index === 0) { //display as F and not C for the single day card 
         const tempCelsius = weatherItem.main.temp -273.15;
         const tempFahrenheit = celsiusToFahrenheit(tempCelsius);
         return `<div class="details">
@@ -41,14 +42,17 @@ const createWeatherCard = (cityName, weatherItem, index) => {
 //get weather forecast 
 const getWeatherDetails = (cityName, lat, lon) => {
     const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+
     //get weather by 5 day forecast
-    fetch(WEATHER_API_URL).then(res => res.json()).then(data => {
-        const uniqueForecastDays = [];
-        const fiveDaysForecast = data.list.filter(forecast => {
-            const forecastDate = new Date(forecast.dt_txt).getDate();
-            if (!uniqueForecastDays.includes(forecastDate)) {
+    fetch(WEATHER_API_URL)
+        .then(res => res.json())
+        .then(data => {
+            const uniqueForecastDays = [];
+            const fiveDaysForecast = data.list.filter(forecast => {
+                const forecastDate = new Date(forecast.dt_txt).getDate();
+                if (!uniqueForecastDays.includes(forecastDate)) {
                 uniqueForecastDays.push(forecastDate);
-                return true;
+                    return true;
             }
             return false;
         });
@@ -90,5 +94,3 @@ const getCityCoordinates = () => {
 }
 
 searchButton.addEventListener("click", getCityCoordinates);
-
-//everything is working other than the actual weather populating.  issue has to be around the API 95% sure
